@@ -14,4 +14,4 @@ use App\Http\Controllers\PagesController;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\PagesController@index');
+Route::get('/', 'App\Http\Controllers\PagesController@newsList');

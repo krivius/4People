@@ -18,7 +18,7 @@
     <ul>
     @foreach($data as $dataItem)
         <li>
-            <a href="{{$dataItem->href}}">{{$dataItem->href}}</a>
+            <a href="{{$dataItem}}">{{$dataItem}}</a>
         </li>
     @endforeach
     </ul>

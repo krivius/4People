@@ -8,3 +8,12 @@ body{
     font-family: 'Nunito', sans-serif;
     color: lightskyblue;
 }
+li{
+    list-style-type: none;
+}
+li a{
+    display: block;
+    width: auto;
+    border-bottom: 1px solid #a0aec0;
+    margin-bottom: 20px;
+}
