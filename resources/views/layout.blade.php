@@ -10,18 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="app.css" rel="stylesheet">
+    <link href="/app.css" rel="stylesheet">
 
 </head>
 <body class="antialiased">
-    <h1>Новости</h1>
-    <ul>
-    @foreach($data as $dataItem)
-        <li>
-            <a href="{{$dataItem}}">{{$dataItem}}</a>
-        </li>
-    @endforeach
-    </ul>
-
+    @yield('content')
 </body>
 </html>

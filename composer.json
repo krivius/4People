@@ -14,7 +14,8 @@
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
         "simplehtmldom/simplehtmldom": "^2.0@RC",
-        "ext-dom": "*"
+        "ext-dom": "*",
+      "ext-mbstring": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

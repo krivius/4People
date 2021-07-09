@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use simple_html_dom;
+use App\Models\News;
 
-
-class PagesController extends Controller
+class NewsController extends Controller
 {
-/*
+
     private function grabb($url){  //лезем CURL`ом по ссылке и выдераем оттуда всю страницу
         $agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36';  //прикидываемся браузером
 
@@ -51,36 +51,53 @@ class PagesController extends Controller
             if( (!str_contains($collectionItem->attr['href'], 'adv.rbc')) &&
                 (!str_contains($collectionItem->attr['href'], 'traffic.rbc'))) {  //избавляемся от рекламы
 
-                $links[] = $collectionItem->attr['href'];   //пихаем ссылку на новость в массив
+//                $links[] = $collectionItem->attr['href'];   //пихаем ссылку на новость в массив
 
                 $newsPage = new simple_html_dom();
                 $newsPage->load($this->grabb($collectionItem->attr['href']));  //дергаем полную новость в сыром виде
                 $header = $newsPage->find("h1", 0);  //дергаем заголовок новости
                 $title = str_get_html($header)->plaintext;
-                $titles[] = $title;
+
                 $img = $newsPage->find("img.article__main-image__image", 0);
 
-                if($img){
-                    $img = $img->getAttribute("src");
-                    $images[] = $img;
-                }else{
-                    $img[] = '';
-                }
+
 
                 $fullStory ='';
                 $text = $newsPage->find("p");
                 foreach ($text as $p){  //формируем полный текст новости
-                    $fullStory .= '<p>'.$p->plaintext.'</p>';
+                    $fullStory .= $p->plaintext;
                 }
-                $news[] = $fullStory;
+//                $news[] = $fullStory;
 
+                $article = new news();
+                $article->title = $title;
+                $article->article = $fullStory;
+                $article->link = $collectionItem->attr['href'];
+                if($img){
+                    $article->img = $img->getAttribute("src");
+//                    $images[] = $img;
+                }else{
+                    $article->img = '';
+                }
+
+                $article->save();
             }
         }
-//        return view('layout', ["data"=>$articles]);
-        return view('layout', ["titles"=>$titles, "links"=>$links]);
-    }*/
+
+//        Dogs::latest()->take(5)->get();
+
+            $newsList = News::latest()->take(15)->get();
+//            dd($newslist);
+
+//        return view('layout', ["titles"=>$titles, "links"=>$links]);
+        return view('/documents/showList', ["news"=>$newsList]);
+    }
 
 
+    public function fullStory($id)
+    {
+        $arcticle = News::find($id);
 
-
+        return view('/documents/showFull', ["article"=>$arcticle]);
+    }
 }

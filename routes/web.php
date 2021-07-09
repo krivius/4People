@@ -14,4 +14,5 @@ use App\Http\Controllers\PagesController;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\PagesController@newsList');
+Route::get('/', 'App\Http\Controllers\NewsController@newsList');
+Route::get('/news/{id}', 'App\Http\Controllers\NewsController@fullStory');
