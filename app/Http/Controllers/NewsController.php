@@ -51,8 +51,6 @@ class NewsController extends Controller
             if( (!str_contains($collectionItem->attr['href'], 'adv.rbc')) &&
                 (!str_contains($collectionItem->attr['href'], 'traffic.rbc'))) {  //избавляемся от рекламы
 
-//                $links[] = $collectionItem->attr['href'];   //пихаем ссылку на новость в массив
-
                 $newsPage = new simple_html_dom();
                 $newsPage->load($this->grabb($collectionItem->attr['href']));  //дергаем полную новость в сыром виде
                 $header = $newsPage->find("h1", 0);  //дергаем заголовок новости
@@ -67,7 +65,7 @@ class NewsController extends Controller
                 foreach ($text as $p){  //формируем полный текст новости
                     $fullStory .= $p->plaintext;
                 }
-//                $news[] = $fullStory;
+
 
                 $article = new news();
                 $article->title = $title;
@@ -75,7 +73,7 @@ class NewsController extends Controller
                 $article->link = $collectionItem->attr['href'];
                 if($img){
                     $article->img = $img->getAttribute("src");
-//                    $images[] = $img;
+
                 }else{
                     $article->img = '';
                 }
@@ -84,20 +82,17 @@ class NewsController extends Controller
             }
         }
 
-//        Dogs::latest()->take(5)->get();
 
-            $newsList = News::latest()->take(15)->get();
-//            dd($newslist);
+        $newsList = News::latest()->take(15)->get();
 
-//        return view('layout', ["titles"=>$titles, "links"=>$links]);
         return view('/documents/showList', ["news"=>$newsList]);
     }
 
 
     public function fullStory($id)
     {
-        $arcticle = News::find($id);
+        $article = News::find($id);
 
-        return view('/documents/showFull', ["article"=>$arcticle]);
+        return view('/documents/showFull', ["article"=>$article]);
     }
 }
