@@ -4,8 +4,9 @@
     <div id="wrapper">
         <h1>{{$article->title}}</h1>
 
-        <img src="{{$article->img}}">
-
+        @if($article->img)
+            <img src="{{$article->img}}">
+        @endif
         <div class="fullStory">
             {{$article->article}}
         </div>
